@@ -70,14 +70,30 @@
 		652536BC1F4B294D0045CCDD /* Stackview */ = {
 			isa = PBXGroup;
 			children = (
+				652536C91F4B294D0045CCDD /* Info.plist */,
+				652536C61F4B294D0045CCDD /* LaunchScreen.storyboard */,
+				652536C41F4B294D0045CCDD /* Assets.xcassets */,
+				652536D01F4B315C0045CCDD /* View Controllers */,
+				652536CF1F4B314D0045CCDD /* Views */,
 				652536BD1F4B294D0045CCDD /* AppDelegate.swift */,
 				652536BF1F4B294D0045CCDD /* ViewController.swift */,
 				652536C11F4B294D0045CCDD /* Main.storyboard */,
-				652536C41F4B294D0045CCDD /* Assets.xcassets */,
-				652536C61F4B294D0045CCDD /* LaunchScreen.storyboard */,
-				652536C91F4B294D0045CCDD /* Info.plist */,
 			);
 			path = Stackview;
+			sourceTree = "<group>";
+		};
+		652536CF1F4B314D0045CCDD /* Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		652536D01F4B315C0045CCDD /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "View Controllers";
 			sourceTree = "<group>";
 		};
 		EB9A71BE8138BE7565D5A1AB /* Frameworks */ = {
