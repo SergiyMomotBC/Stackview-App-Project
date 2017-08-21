@@ -12,6 +12,7 @@
 		652536C31F4B294D0045CCDD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 652536C11F4B294D0045CCDD /* Main.storyboard */; };
 		652536C51F4B294D0045CCDD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 652536C41F4B294D0045CCDD /* Assets.xcassets */; };
 		652536C81F4B294D0045CCDD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 652536C61F4B294D0045CCDD /* LaunchScreen.storyboard */; };
+		87BB5B699061F4886F6A511B /* Pods_Stackview.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B53021E8A6FEB7151706AE44 /* Pods_Stackview.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +23,9 @@
 		652536C41F4B294D0045CCDD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		652536C71F4B294D0045CCDD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		652536C91F4B294D0045CCDD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		96FECE2237A99339EECFED92 /* Pods-Stackview.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Stackview.release.xcconfig"; path = "Pods/Target Support Files/Pods-Stackview/Pods-Stackview.release.xcconfig"; sourceTree = "<group>"; };
+		B53021E8A6FEB7151706AE44 /* Pods_Stackview.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Stackview.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F3EBF9BD1856CE48249E26F6 /* Pods-Stackview.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Stackview.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Stackview/Pods-Stackview.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -29,17 +33,29 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				87BB5B699061F4886F6A511B /* Pods_Stackview.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		59F41704B5289ED4FE8BBE8E /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				F3EBF9BD1856CE48249E26F6 /* Pods-Stackview.debug.xcconfig */,
+				96FECE2237A99339EECFED92 /* Pods-Stackview.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		652536B11F4B294D0045CCDD = {
 			isa = PBXGroup;
 			children = (
 				652536BC1F4B294D0045CCDD /* Stackview */,
 				652536BB1F4B294D0045CCDD /* Products */,
+				59F41704B5289ED4FE8BBE8E /* Pods */,
+				EB9A71BE8138BE7565D5A1AB /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -64,6 +80,14 @@
 			path = Stackview;
 			sourceTree = "<group>";
 		};
+		EB9A71BE8138BE7565D5A1AB /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				B53021E8A6FEB7151706AE44 /* Pods_Stackview.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -71,9 +95,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 652536CC1F4B294D0045CCDD /* Build configuration list for PBXNativeTarget "Stackview" */;
 			buildPhases = (
+				9CDCBF1C5FD59B92447815DF /* [CP] Check Pods Manifest.lock */,
 				652536B61F4B294D0045CCDD /* Sources */,
 				652536B71F4B294D0045CCDD /* Frameworks */,
 				652536B81F4B294D0045CCDD /* Resources */,
+				EA72B0D28DDB41355F792D0D /* [CP] Embed Pods Frameworks */,
+				A2D3704EE52AF1643433DF4B /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -96,7 +123,7 @@
 				TargetAttributes = {
 					652536B91F4B294D0045CCDD = {
 						CreatedOnToolsVersion = 9.0;
-						ProvisioningStyle = Automatic;
+						ProvisioningStyle = Manual;
 					};
 				};
 			};
@@ -130,6 +157,66 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		9CDCBF1C5FD59B92447815DF /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Stackview-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A2D3704EE52AF1643433DF4B /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Stackview/Pods-Stackview-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		EA72B0D28DDB41355F792D0D /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-Stackview/Pods-Stackview-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/InteractiveSideMenu/InteractiveSideMenu.framework",
+				"${BUILT_PRODUCTS_DIR}/StatefulViewController/StatefulViewController.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/InteractiveSideMenu.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/StatefulViewController.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Stackview/Pods-Stackview-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		652536B61F4B294D0045CCDD /* Sources */ = {
@@ -272,31 +359,40 @@
 		};
 		652536CD1F4B294D0045CCDD /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F3EBF9BD1856CE48249E26F6 /* Pods-Stackview.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = 6UKDQC3S2K;
 				INFOPLIST_FILE = Stackview/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = smomot.Stackview;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "c9860ff8-aae9-4243-abb7-ac34af95a765";
+				PROVISIONING_PROFILE_SPECIFIER = "Stackview Development";
 				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
 		652536CE1F4B294D0045CCDD /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 96FECE2237A99339EECFED92 /* Pods-Stackview.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_STYLE = Automatic;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = 6UKDQC3S2K;
 				INFOPLIST_FILE = Stackview/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = smomot.Stackview;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "da219f31-22db-4b68-bd33-ab87393c4b0b";
+				PROVISIONING_PROFILE_SPECIFIER = "Stackview Distribution";
 				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
