@@ -1,5 +1,9 @@
 import UIKit
 
+public enum ErrorType: Error {
+    case noConnection
+    case other
+}
 
 // MARK: Default Implementation BackingViewProvider
 
@@ -14,7 +18,6 @@ extension BackingViewProvider where Self: UIView {
         return self
     }
 }
-
 
 // MARK: Default Implementation StatefulViewController
 
@@ -59,6 +62,11 @@ extension StatefulViewController {
         set { setPlaceholderView(newValue, forState: .Empty) }
     }
     
+    public var connectionErrorView: UIView? {
+        get { return placeholderView(.ConnectionError) }
+        set { setPlaceholderView(newValue, forState: .ConnectionError) }
+    }
+    
     
     // MARK: Transitions
     
@@ -91,8 +99,12 @@ extension StatefulViewController {
         var newState: StatefulViewControllerState = .Empty
         if loading {
             newState = .Loading
-        } else if let _ = error {
-            newState = .Error
+        } else if let stateError = error as? ErrorType {
+            if stateError == .other {
+                newState = .Error
+            } else {
+                newState = .ConnectionError
+            }
         }
         self.stateMachine.transitionToState(.view(newState.rawValue), animated: animated, completion: completion)
     }

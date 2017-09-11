@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "718B37040EDC13FF47C02CB61403E167"
+               BlueprintIdentifier = "DA3EBC484C3348928E2B3490C6269E33"
                BuildableName = "StatefulViewController.framework"
                BlueprintName = "StatefulViewController"
                ReferencedContainer = "container:Pods.xcodeproj">
@@ -47,7 +47,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "718B37040EDC13FF47C02CB61403E167"
+            BlueprintIdentifier = "DA3EBC484C3348928E2B3490C6269E33"
             BuildableName = "StatefulViewController.framework"
             BlueprintName = "StatefulViewController"
             ReferencedContainer = "container:Pods.xcodeproj">

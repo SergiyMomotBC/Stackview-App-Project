@@ -5,6 +5,7 @@ public enum StatefulViewControllerState: String {
     case Content = "content"
     case Loading = "loading"
     case Error = "error"
+    case ConnectionError = "connectionError"
     case Empty = "empty"
 }
 
@@ -42,6 +43,7 @@ public protocol StatefulViewController: class, BackingViewProvider {
     /// The empty view is shown when the `hasContent` method returns false
     var emptyView: UIView? { get set }
 
+    var connectionErrorView: UIView? { get set }
     
     // MARK: Transitions
 

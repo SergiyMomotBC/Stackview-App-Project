@@ -126,7 +126,7 @@ open class MenuContainerViewController: UIViewController {
 
     // MARK: - Private
     //
-    private weak var currentContentViewController: UIViewController?
+    public weak var currentContentViewController: UIViewController?
     private var navigationMenuTransitionDelegate: MenuTransitioningDelegate!
 
     /**

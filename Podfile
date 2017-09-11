@@ -9,5 +9,10 @@ target 'Stackview' do
     pod 'SwiftyJSON'
     pod 'InteractiveSideMenu'
     pod 'StatefulViewController'
-
+    pod 'Kingfisher'
+    pod 'DGElasticPullToRefresh'
+    pod 'BTNavigationDropdownMenu'
+    pod 'HTMLEntities', :git => 'https://github.com/IBM-Swift/swift-html-entities.git'
+    pod 'DZNEmptyDataSet'
+    pod 'CFAlertViewController'
 end

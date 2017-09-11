@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13189.4" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13165.3"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="80" id="KGk-i7-Jjw" customClass="UserTableViewCell" customModule="Stackview" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="80"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="79.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AR2-JT-VST">
+                        <rect key="frame" x="16" y="8" width="288" height="63.5"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Rbd-cs-JPq">
+                                <rect key="frame" x="12" y="12" width="39.5" height="39.5"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="Rbd-cs-JPq" secondAttribute="height" id="VkF-HC-Jrd"/>
+                                </constraints>
+                            </imageView>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="top" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="ImD-i4-Rxe">
+                                <rect key="frame" x="59" y="12" width="216.5" height="40"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Yc-0m-cos">
+                                        <rect key="frame" x="0.0" y="0.0" width="35.5" height="18"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ON4-2o-mRm" customClass="BadgesView" customModule="Stackview" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="22" width="196.5" height="18"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    </view>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="ImD-i4-Rxe" secondAttribute="bottom" constant="12" id="0Iz-ah-KxJ"/>
+                            <constraint firstItem="Rbd-cs-JPq" firstAttribute="top" secondItem="AR2-JT-VST" secondAttribute="top" constant="12" id="89y-tp-NdV"/>
+                            <constraint firstItem="ImD-i4-Rxe" firstAttribute="leading" secondItem="Rbd-cs-JPq" secondAttribute="trailing" constant="8" id="I7C-VQ-MW7"/>
+                            <constraint firstAttribute="bottom" secondItem="Rbd-cs-JPq" secondAttribute="bottom" constant="12" id="Wq4-uv-xIB"/>
+                            <constraint firstItem="ImD-i4-Rxe" firstAttribute="top" secondItem="AR2-JT-VST" secondAttribute="top" constant="12" id="hvg-cL-4HX"/>
+                            <constraint firstAttribute="trailing" secondItem="ImD-i4-Rxe" secondAttribute="trailing" constant="12" id="k6c-Ac-n1d"/>
+                            <constraint firstItem="Rbd-cs-JPq" firstAttribute="leading" secondItem="AR2-JT-VST" secondAttribute="leading" constant="12" id="n8y-2D-qGp"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                <constraints>
+                    <constraint firstItem="AR2-JT-VST" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="dq6-UL-v5i"/>
+                    <constraint firstAttribute="bottom" secondItem="AR2-JT-VST" secondAttribute="bottom" constant="8" id="eeO-Vz-8M4"/>
+                    <constraint firstItem="AR2-JT-VST" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="feo-e5-nAi"/>
+                    <constraint firstAttribute="trailing" secondItem="AR2-JT-VST" secondAttribute="trailing" constant="16" id="rih-Pv-vs2"/>
+                </constraints>
+            </tableViewCellContentView>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="badgesCountView" destination="ON4-2o-mRm" id="7hp-KR-Fbs"/>
+                <outlet property="profileImageView" destination="Rbd-cs-JPq" id="9Pt-dH-P8U"/>
+                <outlet property="userInfoLabel" destination="1Yc-0m-cos" id="at4-y8-ebS"/>
+            </connections>
+            <point key="canvasLocation" x="-149" y="-146"/>
+        </tableViewCell>
+    </objects>
+</document>

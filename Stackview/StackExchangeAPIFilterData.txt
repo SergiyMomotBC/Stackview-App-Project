@@ -1,0 +1,4 @@
+Include:
+
+badge.description
+tag_wiki.body
