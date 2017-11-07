@@ -10,6 +10,9 @@ import UIKit
 
 class UsersViewController: DataPresenterViewController<User, UserTableViewCell> {
     var sortingOption: UsersSortOption = .reputation(min: nil, max: nil)
+    var creationDateOption: CreationDateFilterParameters?
+    var endpointPath = "users"
+    var order: SortingOrder = .descending
     
     init() {
         super.init(nibName: nil, bundle: nil)
@@ -22,26 +25,47 @@ class UsersViewController: DataPresenterViewController<User, UserTableViewCell> 
     
     override func viewDidLoad() {
         self.title = "Users"
-        self.dropDownItems = ["Reputabel", "Newest", "Alphabetical order"]
+        self.dropDownItems = ["Top", "Newest", "Top new in a week", "Top new in a month", "Moderators"]
         
         super.viewDidLoad()
         
+        tableView.estimatedRowHeight = 0.0
         tableView.rowHeight = 80.0
         
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .search, target: self, action: #selector(showSearch))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "search_icon")!.withRenderingMode(.alwaysTemplate), style: .plain, target: self, action: #selector(showSearch))
     }
     
     override func handleDropDownSelection(for index: Int) {
+        endpointPath = "users"
+        order = .descending
+        
         switch index {
         case 0:
             sortingOption = .reputation(min: nil, max: nil)
+            creationDateOption = nil
         case 1:
             sortingOption = .creation
+            creationDateOption = nil
         case 2:
+            sortingOption = .reputation(min: nil, max: nil)
+            creationDateOption = CreationDateFilterParameters(fromDate: Calendar.current.date(byAdding: .day, value: -7, to: Date(), wrappingComponents: false), toDate: nil)
+        case 3:
+            sortingOption = .reputation(min: nil, max: nil)
+            creationDateOption = CreationDateFilterParameters(fromDate: Calendar.current.date(byAdding: .day, value: -30, to: Date(), wrappingComponents: false), toDate: nil)
+        case 4:
             sortingOption = .name(min: nil, max: nil)
+            creationDateOption = nil
+            endpointPath = "users/moderators"
+            order = .ascending
         default:
             fatalError()
         }
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        let questionsVC = UserProfileViewController(for: String(data[indexPath.row].id ?? 0))
+        navigationController?.show(questionsVC, sender: nil)
     }
     
     @objc func showSearch() {
@@ -51,10 +75,14 @@ class UsersViewController: DataPresenterViewController<User, UserTableViewCell> 
 
 extension UsersViewController: RemoteDataSource {
     var endpoint: String {
-        return "users"
+        return endpointPath
     }
     
     var parameters: [ParametersConvertible] {
-        return [SortingParameters(option: self.sortingOption, order: .descending)]
+        if let dateOptions = creationDateOption {
+            return [SortingParameters(option: self.sortingOption, order: order), dateOptions]
+        } else {
+            return [SortingParameters(option: self.sortingOption, order: order)]
+        }
     }
 }

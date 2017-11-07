@@ -6,13 +6,14 @@
 //  Copyright © 2017 Sergiy Momot. All rights reserved.
 //
 
-import Foundation
+import UIKit
+import HTMLEntities
 
-class GenericCell<T: Decodable>: UITableViewCell {
+class GenericCell<T>: UITableViewCell {
     func setup(for: T) {}
     
-    override func setHighlighted(_ highlighted: Bool, animated: Bool) {
-        if highlighted {
+    override func setSelected(_ selected: Bool, animated: Bool) {
+        if selected {
             UIView.animate(withDuration: 0.2, animations: {
                 self.transform = CGAffineTransform(scaleX: 0.75, y: 0.75)
                 self.alpha = 0.5
@@ -25,5 +26,11 @@ class GenericCell<T: Decodable>: UITableViewCell {
                 }
             })
         }
+    }
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        selectionStyle = .none
+        contentView.subviews.first?.layer.cornerRadius = 6.0
     }
 }

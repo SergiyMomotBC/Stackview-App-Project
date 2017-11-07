@@ -27,6 +27,12 @@ class TagFrequentQuestionsViewController: DataPresenterViewController<Question, 
         
         super.viewDidLoad()
     }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        let vc = QuestionDetailViewController(for: String(data[indexPath.row].id!))
+        navigationController?.show(vc, sender: nil)
+    }
 }
 
 extension TagFrequentQuestionsViewController: RemoteDataSource {

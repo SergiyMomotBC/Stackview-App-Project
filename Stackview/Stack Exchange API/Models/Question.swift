@@ -24,14 +24,14 @@ struct Question: Decodable {
     let closedDetails: ClosedDetails?
     let closedReason: String?
     let commentsCount: Int?
-    let comments: [Comment]?
+    var comments: [Comment]?
     let communityOwnedDate: Date?
     let creationDate: Date?
     let deleteVotesCount: Int?
     let downvoteCount: Int?
-    let isDownvotedByCurrentUser: Bool?
-    let favoritesCount: Int?
-    let isFavoritedByCurrentUser: Bool?
+    var isDownvotedByCurrentUser: Bool?
+    var favoritesCount: Int?
+    var isFavoritedByCurrentUser: Bool?
     let isAnswered: Bool?
     let lastActivityDate: Date?
     let lastEditDate: Date?
@@ -45,12 +45,12 @@ struct Question: Decodable {
     let protectedDate: Date?
     let id: Int?
     let reopenVotesCount: Int?
-    let score: Int?
+    var score: Int?
     let shareLink: URL?
     let tags: [String]?
     let title: String?
     let upvoteCount: Int?
-    let isUpvotedByCurrentUser: Bool?
+    var isUpvotedByCurrentUser: Bool?
     let viewsCount: Int?
     
     private enum CodingKeys: String, CodingKey {

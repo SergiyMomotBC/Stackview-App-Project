@@ -20,15 +20,15 @@ struct Comment: Decodable {
     let postID: Int?
     let postType: PostType?
     let replyToUser: ShallowUser?
-    let score: Int?
-    let isUpvotedByCurrentUser: Bool?
+    var score: Int?
+    var isUpvotedByCurrentUser: Bool?
     
     private enum CodingKeys: String, CodingKey {
         case bodyText = "body"
         case bodyMarkdown = "body_markdown"
         case canFlag = "can_flag"
         case id = "comment_id"
-        case creationDate = "creationDate"
+        case creationDate = "creation_date"
         case isEdited = "edited"
         case link
         case owner

@@ -34,6 +34,7 @@ open class MenuContainerViewController: UIViewController {
             menuViewController.menuContainerViewController = self
             menuViewController.transitioningDelegate = self.navigationMenuTransitionDelegate
             menuViewController.navigationMenuTransitionDelegate = self.navigationMenuTransitionDelegate
+            menuViewController.view.frame = UIScreen.main.bounds
         }
     }
     
@@ -109,7 +110,7 @@ open class MenuContainerViewController: UIViewController {
 
     override open func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
-
+        
         let viewBounds = CGRect(x:0, y:0, width:size.width, height:size.height)
         let viewCenter = CGPoint(x:size.width/2, y:size.height/2)
         coordinator.animate(alongsideTransition: { _ in
@@ -147,6 +148,7 @@ open class MenuContainerViewController: UIViewController {
         if menuViewController == nil {
             fatalError("Invalid `menuViewController` value. It should not be nil")
         }
+        
         self.present(menuViewController, animated: true, completion: nil)
     }
 }

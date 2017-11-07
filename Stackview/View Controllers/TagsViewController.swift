@@ -9,12 +9,17 @@
 import UIKit
 
 class TagsViewController: DataPresenterViewController<Tag, TagTableViewCell> {
-    fileprivate var sortingOption: TagsSortOption = .popular(min: nil, max: nil)
-    var isAlphabetical = false
+    private var sortingOption: TagsSortOption = .popular(min: nil, max: nil)
+    private let user: User?
+    private var creationDateOption: CreationDateFilterParameters?
     
-    init() {
+    init(for user: User? = nil) {
+        self.user = user
         super.init(nibName: nil, bundle: nil)
-        dataSource = self
+        
+        self.title = user == nil ? "Tags" : "\(user!.name!)'s tags"
+        self.dropDownItems = ["Popular", "Recently used", "Top new in a week", "Top new in a month"]
+        self.dataSource = self
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -22,25 +27,27 @@ class TagsViewController: DataPresenterViewController<Tag, TagTableViewCell> {
     }
     
     override func viewDidLoad() {
-        self.title = "Tags"
-        self.dropDownItems = ["Popular", "Recently used", "Alphabetical order"]
-        
         super.viewDidLoad()
         
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .search, target: self, action: #selector(showSearch))
+        if user == nil {
+            navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "search_icon")!.withRenderingMode(.alwaysTemplate), style: .plain, target: self, action: #selector(showSearch))
+        }
     }
     
     override func handleDropDownSelection(for index: Int) {
         switch index {
         case 0:
             sortingOption = .popular(min: nil, max: nil)
-            isAlphabetical = false
+            creationDateOption = nil
         case 1:
             sortingOption = .activity(min: nil, max: nil)
-            isAlphabetical = false
+            creationDateOption = nil
         case 2:
-            sortingOption = .name(min: nil, max: nil)
-            isAlphabetical = true
+            sortingOption = .popular(min: nil, max: nil)
+            creationDateOption = CreationDateFilterParameters(fromDate: Calendar.current.date(byAdding: .day, value: -7, to: Date(), wrappingComponents: false), toDate: nil)
+        case 3:
+            sortingOption = .popular(min: nil, max: nil)
+            creationDateOption = CreationDateFilterParameters(fromDate: Calendar.current.date(byAdding: .day, value: -30, to: Date(), wrappingComponents: false), toDate: nil)
         default:
             fatalError()
         }
@@ -52,19 +59,27 @@ class TagsViewController: DataPresenterViewController<Tag, TagTableViewCell> {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        let questionsVC = QuestionsViewController(for: data[indexPath.row])
-        navigationController?.show(questionsVC, sender: nil)
+        
+        if let user = self.user {
+            let vc = UserTaggedPostsViewController(for: user, tagName: data[indexPath.row].name!)
+            navigationController?.show(vc, sender: nil)
+        } else {
+            let questionsVC = QuestionsViewController(for: data[indexPath.row])
+            navigationController?.show(questionsVC, sender: nil)
+        }
     }
 }
 
 extension TagsViewController: RemoteDataSource {
     var endpoint: String {
-        return "tags"
+        return user == nil ? "tags" : "users/\(user!.id!)/tags"
     }
     
     var parameters: [ParametersConvertible] {
-        return [SortingParameters(option: sortingOption, order: isAlphabetical ? .ascending : .descending)]
+        if let dateOptions = creationDateOption {
+            return [SortingParameters(option: sortingOption, order: .descending), dateOptions]
+        } else {
+            return [SortingParameters(option: sortingOption, order: .descending)]
+        }
     }
-    
-    
 }

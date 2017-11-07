@@ -7,64 +7,50 @@
 //
 
 import UIKit
-import Kingfisher
 
 class QuestionTableViewCell: GenericCell<Question> {
-    @IBOutlet weak var profileImageView: UIImageView!
-    @IBOutlet weak var usernameLabel: UILabel!
+    @IBOutlet weak var profileImageView: ProfileImageView!
+    @IBOutlet weak var usernameLabel: UserInfoLabel!
     @IBOutlet weak var postedDateLabel: UILabel!
     @IBOutlet weak var questionTitleLabel: UILabel!
     @IBOutlet weak var tagsCollectionView: TagsCollectionView!
     @IBOutlet weak var votesLabel: UILabel!
-    @IBOutlet weak var answersCountLabel: UILabel!
+    @IBOutlet weak var answersCountLabel: ScoreLabel!
     @IBOutlet weak var viewsCountLabel: UILabel!
-    @IBOutlet weak var bountyAmountLabel: UILabel!
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        selectionStyle = .none
-
-        bountyAmountLabel.layer.cornerRadius = 6.0
-        profileImageView.layer.cornerRadius = profileImageView.frame.height / 2
-        profileImageView.backgroundColor = UIColor(white: 0.9, alpha: 1.0)
-        profileImageView.layer.borderColor = UIColor(white: 0.9, alpha: 1.0).cgColor
-        profileImageView.layer.borderWidth = 1.0
-        
-        self.contentView.subviews.first?.layer.cornerRadius = 6.0
-        
-        questionTitleLabel.textColor = .secondaryAppColor
-    }
+    @IBOutlet weak var bountyAmountLabel: BountyLabel!
+    @IBOutlet weak var headerHeightConstraint: NSLayoutConstraint!
     
     override func setup(for question: Question) {
-        if let imageURL = question.owner?.profileImageURL {
-            profileImageView.kf.setImage(with: imageURL)
-        }
+        profileImageView.setUser(question.owner)
 
-        usernameLabel.text = question.owner?.name?.htmlUnescape()
+        usernameLabel.setInfo(username: question.owner?.name, reputation: question.owner?.reputation, type: question.owner?.type)
         questionTitleLabel.text = question.title?.htmlUnescape()
 
         if let creationDate = question.creationDate {
-            postedDateLabel.text = CellUtils.getCreationTimeText(for: creationDate)
+            postedDateLabel.text = creationDate.getCreationTimeText()
         } else {
             postedDateLabel.text = ""
         }
 
-        tagsCollectionView.tagNames = question.tags ?? []
-
-        CellUtils.setCountLabelAttributes(label: votesLabel, number: question.score ?? 0, word: "vote")
-        CellUtils.setCountLabelAttributes(label: answersCountLabel, number: question.answersCount ?? 0, word: "answer")
-        CellUtils.setCountLabelAttributes(label: viewsCountLabel, number: question.viewsCount ?? 0, word: "view")
-
-        answersCountLabel.backgroundColor = ((question.acceptedAnswerID ?? 0) > 0) ? CellUtils.hasAcceptedAnswerColor : .clear
-
-        if question.acceptedAnswerID != nil {
-            let answers = NSMutableAttributedString(attributedString: answersCountLabel.attributedText!)
-            answers.addAttribute(NSAttributedStringKey.foregroundColor, value: UIColor.white, range: NSRange(location: 0, length: answers.length))
-            answersCountLabel.attributedText = answers
+        DispatchQueue.main.async {
+            self.tagsCollectionView.tagNames = question.tags ?? []
         }
+        
+        let qScore = question.score ?? 0
+        votesLabel.emphasize(text: "\(qScore.toShortString()) \(abs(qScore) == 1 ? "vote" : "votes")")
+        
+        let aCount = question.answersCount ?? 0
+        answersCountLabel.emphasize(text: "\(aCount.toShortString()) \(abs(aCount) == 1 ? "answer" : "answers")")
+        
+        let vCount = question.viewsCount ?? 0
+        viewsCountLabel.emphasize(text: "\(vCount.toShortString()) \(abs(vCount) == 1 ? "view" : "views")")
+        
+        answersCountLabel.backgroundColor = ((question.acceptedAnswerID ?? 0) > 0) ? .greenAcceptedColor : .clear
+
+        answersCountLabel.isAccepted = question.acceptedAnswerID != nil
 
         if let bountyAmount = question.bountyAmount {
-            bountyAmountLabel.text = "+\(bountyAmount)"
+            bountyAmountLabel.setBounty(bountyAmount)
             bountyAmountLabel.isHidden = false
         } else {
             bountyAmountLabel.isHidden = true
@@ -73,8 +59,6 @@ class QuestionTableViewCell: GenericCell<Question> {
     
     override func prepareForReuse() {
         super.prepareForReuse()
-        profileImageView.image = nil
+        profileImageView?.image = nil
     }
 }
-
-

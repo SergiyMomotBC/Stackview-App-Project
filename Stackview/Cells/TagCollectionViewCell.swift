@@ -9,7 +9,7 @@
 import UIKit
 
 class TagCollectionViewCell: UICollectionViewCell {
-    private let cellBackgroundColor = UIColor.secondaryAppColor
+    private let cellBackgroundColor = UIColor.flatRed
     
     let tagNameLabel: UILabel = {
         let label = UILabel()

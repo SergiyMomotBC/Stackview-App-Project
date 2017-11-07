@@ -20,7 +20,7 @@ class FloatingButton: UIButton {
         widthAnchor.constraint(equalToConstant: size).isActive = true
         heightAnchor.constraint(equalToConstant: size).isActive = true
         layer.cornerRadius = size / 2
-        backgroundColor = UIColor.secondaryAppColor
+        backgroundColor = UIColor.flatBlack
         alpha = 0.9
     }
     

@@ -8,24 +8,13 @@
 
 import Foundation
 
-enum InboxItemType: String, Decodable {
-    case comment
-    case charMessage = "chat_message"
-    case newAnswer = "new_answer"
-    case careersMessage = "careers_message"
-    case careersInvitations = "careers_invitations"
-    case metaQuestion = "meta_question"
-    case postNotice = "post_notice"
-    case moderatorMessage = "moderator_message"
-}
-
 struct InboxItem: Decodable {
     let answerID: Int?
     let bodyText: String?
     let commentID: Int?
     let creationDate: Date?
     let isUnread: Bool?
-    let type: InboxItemType?
+    let type: String?
     let link: URL?
     let questionID: Int?
     let site: Site?

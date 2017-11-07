@@ -9,7 +9,7 @@
 import Foundation
 
 struct Answer: Decodable {
-    let isAcceptedByCurrentUser: Bool?
+    var isAcceptedByCurrentUser: Bool?
     let id: Int?
     let awardedBountyAmount: Int?
     let awardedBountyUsers: [ShallowUser]?
@@ -17,12 +17,12 @@ struct Answer: Decodable {
     let bodyMarkdown: String?
     let canFlag: Bool?
     let commentsCount: Int?
-    let comments: [Comment]?
+    var comments: [Comment]?
     let communityOwnedDate: Date?
     let creationDate: Date?
     let downvoteCount: Int?
-    let isDownvotedByCurrentUser: Bool?
-    let isAccepted: Bool?
+    var isDownvotedByCurrentUser: Bool?
+    var isAccepted: Bool?
     let lastActivityDate: Date?
     let lastEditDate: Date?
     let lastEditor: ShallowUser?
@@ -30,12 +30,12 @@ struct Answer: Decodable {
     let lockedDate: Date?
     let owner: ShallowUser?
     let questionID: Int?
-    let score: Int?
+    var score: Int?
     let shareLink: URL?
     let tags: [String]?
     let title: String?
     let upvoteCount: Int?
-    let isUpvotedByCurrentUser: Bool?
+    var isUpvotedByCurrentUser: Bool?
     
     private enum CodingKeys: String, CodingKey {
         case isAcceptedByCurrentUser = "accepted"

@@ -57,11 +57,10 @@ public struct TransitionOptions {
 
     /// Spring animation settings if `useFinishingSpringSettings` is set to true.
     public var finishingSpringSettings = SpringSettings(presentSpringParams: SpringParams(dampingRatio: 0.7, velocity: 0.3),
-                                                    dismissSpringParams: SpringParams(dampingRatio:
-                                                        0.8, velocity: 0.3))
+                                                        dismissSpringParams: SpringParams(dampingRatio: 0.9, velocity: -0.5))
     /// Spring animation settings if `useCancellingSpringSettings` is set to true.
     public var cancellingSpringSettings = SpringSettings(presentSpringParams: SpringParams(dampingRatio: 0.7, velocity: 0.0),
-                                                    dismissSpringParams: SpringParams(dampingRatio: 0.7, velocity: 0.0))
+                                                         dismissSpringParams: SpringParams(dampingRatio: 0.7, velocity: 0.0))
 
     /// Regular view animation options. Default value is `curveEaseInOut`.
     public var animationOptions: UIViewAnimationOptions = .curveEaseInOut

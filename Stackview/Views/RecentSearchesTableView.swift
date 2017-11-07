@@ -11,6 +11,7 @@ import DZNEmptyDataSet
 
 class RecentSearchesTableView: UITableView {
     private let headerHeight: CGFloat = 60.0
+    private let maxRecords = 7
     
     private var records: [SearchRecord] = []
     private let recordsType: SearchRecordType
@@ -34,16 +35,16 @@ class RecentSearchesTableView: UITableView {
     
     private func setup() {
         translatesAutoresizingMaskIntoConstraints = false
-        backgroundColor = .clear
+        backgroundColor = .mainAppColor
         rowHeight = 44.0
+        estimatedRowHeight = 0.0
         register(UITableViewCell.self, forCellReuseIdentifier: String(describing: UITableViewCell.self))
         delegate = self
         dataSource = self
         emptyDataSetSource = self
         alwaysBounceVertical = false
         tableFooterView = UIView()
-        separatorInset = .zero
-        separatorColor = .gray
+        separatorColor = .lightGray
         scrollIndicatorInsets = UIEdgeInsets(top: headerHeight, left: 0, bottom: 0, right: 0)
     }
     
@@ -101,7 +102,7 @@ class RecentSearchesTableView: UITableView {
 
 extension RecentSearchesTableView: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return records.count
+        return min(maxRecords, records.count)
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
@@ -124,8 +125,10 @@ extension RecentSearchesTableView: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: UITableViewCell.self), for: indexPath)
-        cell.contentView.backgroundColor = UIColor.secondaryAppColor
+        cell.backgroundColor = .clear
+        cell.contentView.backgroundColor = .clear
         cell.textLabel?.textColor = .white
+        cell.textLabel?.font = UIFont.boldSystemFont(ofSize: 16.0)
         cell.textLabel?.text = records[indexPath.row].title
         return cell
     }
@@ -133,9 +136,16 @@ extension RecentSearchesTableView: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             tableView.beginUpdates()
+            
             let record = records.remove(at: indexPath.row)
             CoreDataManager.shared.deleteRecord(record)
-            tableView.deleteRows(at: [indexPath], with: .automatic)
+            
+            if records.isEmpty {
+                tableView.deleteSections(IndexSet(integer: 0), with: .automatic)
+            } else {
+                tableView.deleteRows(at: [indexPath], with: .automatic)
+            }
+            
             tableView.endUpdates()
         }
     }
@@ -156,20 +166,3 @@ extension RecentSearchesTableView: DZNEmptyDataSetSource {
         return -100.0
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

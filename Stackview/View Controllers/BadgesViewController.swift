@@ -7,32 +7,41 @@
 //
 
 import UIKit
+import CFAlertViewController
 
 class BadgesViewController: DataPresenterViewController<Badge, BadgeTableViewCell> {
-    fileprivate var sortingOption: BadgesSortOption = .name(min: nil, max: nil)
+    static func showBadgeDescription(_ badge: Badge, in vc: UIViewController) {
+        let description = (badge.description?.htmlUnescape().removingHREF() ?? "No description") + "."
+        
+        let alert = CFAlertViewController(title: badge.name?.htmlUnescape(), titleColor: .mainAppColor, message: description, messageColor: .flatBlack,
+                                          textAlignment: .left, preferredStyle: .alert, headerView: nil, footerView: nil, didDismissAlertHandler: nil)
+        
+        alert.addAction(CFAlertAction(title: "OK", style: .Default, alignment: .justified, backgroundColor: .flatPurple, textColor: .white, handler: nil))
+        
+        vc.present(alert, animated: true, completion: nil)
+    }
     
-    init() {
+    private var sortingOption: UserBadgesSortOption = .awarded
+    private var user: User
+    
+    init(for user: User) {
+        self.user = user
+        
         super.init(nibName: nil, bundle: nil)
-        dataSource = self
+        
+        self.title = user.name! + "'s badges"
+        self.dropDownItems = ["Recent", "Gold", "Silver", "Bronze"]
+        self.dataSource = self
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    override func viewDidLoad() {
-        self.title = "Badges"
-        self.dropDownItems = ["All", "Gold", "Silver", "Bronze"]
-        
-        super.viewDidLoad()
-        
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .search, target: self, action: #selector(showSearch))
-    }
-    
+
     override func handleDropDownSelection(for index: Int) {
         switch index {
         case 0:
-            sortingOption = .name(min: nil, max: nil)
+            sortingOption = .awarded
         case 1:
             sortingOption = .rank(min: nil, max: .gold)
         case 2:
@@ -44,17 +53,18 @@ class BadgesViewController: DataPresenterViewController<Badge, BadgeTableViewCel
         }
     }
     
-    @objc func showSearch() {
-        //navigationController?.show(QuestionsSearchViewController(), sender: nil)
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        BadgesViewController.showBadgeDescription(data[indexPath.row], in: self)
     }
 }
 
 extension BadgesViewController: RemoteDataSource {
     var endpoint: String {
-        return "badges/name"
+        return "users/\(user.id!)/badges"
     }
     
     var parameters: [ParametersConvertible] {
-        return [SortingParameters(option: sortingOption, order: .ascending)]
+        return [SortingParameters(option: sortingOption, order: .descending)]
     }
 }

@@ -35,7 +35,7 @@ class BadgesView: UIStackView {
         distribution = .fillEqually
         alignment = .center
         axis = .horizontal
-        spacing = 4.0
+        spacing = 8.0
         
         goldBadgesLabel = addBadgeItem(image: UIImage(named: "gold_badge")!)
         silverBadgesLabel = addBadgeItem(image: UIImage(named: "silver_badge")!)
@@ -43,9 +43,9 @@ class BadgesView: UIStackView {
     }
     
     func setup(for badges: BadgeCount) {
-        goldBadgesLabel.text = String(badges.gold ?? 0)
-        silverBadgesLabel.text = String(badges.silver ?? 0)
-        bronzeBadgesLabel.text = String(badges.bronze ?? 0)
+        goldBadgesLabel.text = (badges.gold ?? 0).toString()
+        silverBadgesLabel.text = (badges.silver ?? 0).toString()
+        bronzeBadgesLabel.text = (badges.bronze ?? 0).toString()
     }
     
     private func addBadgeItem(image: UIImage) -> UILabel {
@@ -59,14 +59,14 @@ class BadgesView: UIStackView {
         
         container.addSubview(imageView)
         imageView.leadingAnchor.constraint(equalTo: container.leadingAnchor).isActive = true
-        imageView.topAnchor.constraint(equalTo: container.topAnchor).isActive = true
+        imageView.topAnchor.constraint(equalTo: container.topAnchor, constant: 2.0).isActive = true
         imageView.bottomAnchor.constraint(equalTo: container.bottomAnchor).isActive = true
         imageView.widthAnchor.constraint(equalTo: imageView.heightAnchor).isActive = true
         
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.adjustsFontSizeToFitWidth = true
-        label.minimumScaleFactor = 0.75
+        label.minimumScaleFactor = 0.01
         label.font = UIFont.systemFont(ofSize: 14.0)
         label.numberOfLines = 1
         label.textAlignment = .left
@@ -74,7 +74,7 @@ class BadgesView: UIStackView {
         container.addSubview(label)
         label.leadingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: 4.0).isActive = true
         label.trailingAnchor.constraint(equalTo: container.trailingAnchor).isActive = true
-        label.topAnchor.constraint(equalTo: container.topAnchor).isActive = true
+        label.topAnchor.constraint(equalTo: container.topAnchor, constant: 2.0).isActive = true
         label.bottomAnchor.constraint(equalTo: container.bottomAnchor).isActive = true
         
         addArrangedSubview(container)

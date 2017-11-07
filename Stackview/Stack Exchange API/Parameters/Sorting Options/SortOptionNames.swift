@@ -26,4 +26,5 @@ enum SortOptionName: String {
     case reputation
     case modified
     case type
+    case awarded
 }

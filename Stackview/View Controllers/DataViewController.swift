@@ -12,15 +12,22 @@ import StatefulViewController
 class DataViewController: UIViewController, StatefulViewController {
     var paging = PagingParameters(pageSize: 40)
     var loading = false
-    var loadMoreView = BottomLoadingView(frame: CGRect(x: 0, y: 0, width: 1, height: 40))
+    var isPagingEnabled = true
+    var loadMoreView = BottomLoadingView(frame: CGRect(x: 0, y: 0, width: 1, height: 50))
+    var loaderColor = UIColor.white
+    var loaderBackgroundColor = UIColor.mainAppColor
+    
+    var emptyStateImage: UIImage {
+        return UIImage(named: "no_content_empty_state")!
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        emptyView = StateDisplayView(backgroundColor: UIColor.mainAppColor, image: UIImage(named: "no_results")!, message: "We could not find what you were looking for.")
-        errorView = StateDisplayView(backgroundColor: UIColor.mainAppColor, image: UIImage(named: "error")!, message: "We tried, but something went terribly wrong.")
-        connectionErrorView = StateDisplayView(backgroundColor: UIColor.mainAppColor, image: UIImage(named: "no_connection")!, message: "Very slow or no Internet connection.")
-        loadingView = StateDisplayView(backgroundColor: UIColor.mainAppColor, loaderColor: .white)
+        emptyView = StateDisplayView(backgroundColor: UIColor.mainAppColor, image: emptyStateImage, message: "No content found.", retriable: false)
+        errorView = StateDisplayView(backgroundColor: UIColor.mainAppColor, image: UIImage(named: "response_error")!, message: "Something went terribly wrong.")
+        connectionErrorView = StateDisplayView(backgroundColor: UIColor.mainAppColor, image: UIImage(named: "no_internet_error")!, message: "Very slow or no Internet connection.")
+        loadingView = StateDisplayView(backgroundColor: loaderBackgroundColor, loaderColor: loaderColor)
     }
     
     func hasContent() -> Bool {

@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct BadgeCount: Decodable {
+struct BadgeCount: Codable {
     let bronze: Int?
     let gold: Int?
     let silver: Int?

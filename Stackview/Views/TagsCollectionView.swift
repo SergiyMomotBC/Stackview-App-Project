@@ -26,6 +26,7 @@ class TagsCollectionView: UICollectionView {
     }
     
     private func setup() {
+        translatesAutoresizingMaskIntoConstraints = false
         backgroundColor = .clear
         register(TagCollectionViewCell.self, forCellWithReuseIdentifier: String(describing: TagCollectionViewCell.self))
         delegate = self
@@ -37,6 +38,11 @@ class TagsCollectionView: UICollectionView {
             layout.estimatedItemSize = CGSize(width: 1, height: 1)
             layout.scrollDirection = .horizontal
         }
+    }
+    
+    override func reloadData() {
+        super.reloadData()
+        collectionViewLayout.invalidateLayout()
     }
 }
 

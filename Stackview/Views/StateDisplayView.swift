@@ -8,13 +8,17 @@
 
 import UIKit
 import DGElasticPullToRefresh
+import StatefulViewController
 
-class StateDisplayView: UIView {
+class StateDisplayView: UIView, StatefulPlaceholderView {
     private let loaderSize: CGFloat = 60
+    private var isLoader = false
+    var retryButton: UIButton!
     
     init(backgroundColor: UIColor, loaderColor: UIColor) {
         super.init(frame: .zero)
         self.backgroundColor = backgroundColor
+        self.isLoader = true
         
         let loadingCircle = DGElasticPullToRefreshLoadingViewCircle(lineWidth: 3.0)
         loadingCircle.translatesAutoresizingMaskIntoConstraints = false
@@ -29,15 +33,15 @@ class StateDisplayView: UIView {
         loadingCircle.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
     }
     
-    init(backgroundColor: UIColor, image: UIImage, message: String) {
+    init(backgroundColor: UIColor, image: UIImage, message: String, retriable: Bool = true) {
         super.init(frame: .zero)
         self.backgroundColor = .clear
-        self.isUserInteractionEnabled = false
         
         let containerView = UIView()
         containerView.translatesAutoresizingMaskIntoConstraints = false
         
         self.addSubview(containerView)
+        containerView.backgroundColor = .clear
         containerView.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.5).isActive = true
         containerView.heightAnchor.constraint(equalTo: containerView.widthAnchor, multiplier: 1.5).isActive = true
         containerView.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
@@ -67,9 +71,26 @@ class StateDisplayView: UIView {
         label.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 12.0).isActive = true
         label.leadingAnchor.constraint(equalTo: containerView.leadingAnchor).isActive = true
         label.trailingAnchor.constraint(equalTo: containerView.trailingAnchor).isActive = true
+        
+        if retriable {
+            retryButton = UIButton()
+            retryButton.translatesAutoresizingMaskIntoConstraints = false
+            retryButton.setTitle("Retry", for: .normal)
+            retryButton.setTitleColor(UIColor.yellow, for: .normal)
+            retryButton.setTitleColor(UIColor.lightGray, for: .highlighted)
+            retryButton.titleLabel?.font = UIFont.systemFont(ofSize: 18.0)
+            
+            containerView.addSubview(retryButton)
+            retryButton.topAnchor.constraint(equalTo: label.bottomAnchor, constant: 8.0).isActive = true
+            retryButton.centerXAnchor.constraint(equalTo: containerView.centerXAnchor).isActive = true
+        }
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func placeholderViewInsets() -> UIEdgeInsets {
+        return isLoader ? UIEdgeInsets() : UIEdgeInsets(top: 40, left: 0, bottom: 0, right: 0)
     }
 }

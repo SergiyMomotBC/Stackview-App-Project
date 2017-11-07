@@ -25,5 +25,9 @@ class DataTableView: UITableView {
         separatorStyle = .none
         showsVerticalScrollIndicator = false
         allowsSelection = true
+        
+        if #available(iOS 11.0, *) {
+            contentInsetAdjustmentBehavior = .never
+        }
     }
 }

@@ -10,10 +10,9 @@ import UIKit
 import DGElasticPullToRefresh
 
 class BottomLoadingView: UIView {
-    private let activityView: DGElasticPullToRefreshLoadingViewCircle
+    private let activityView = DGElasticPullToRefreshLoadingViewCircle(lineWidth: 2.0)
     
     override init(frame: CGRect) {
-        activityView = DGElasticPullToRefreshLoadingViewCircle()
         activityView.tintColor = .white
         activityView.translatesAutoresizingMaskIntoConstraints = false
         activityView.setPullProgress(1.0)
@@ -27,8 +26,6 @@ class BottomLoadingView: UIView {
         activityView.heightAnchor.constraint(equalToConstant: 30.0).isActive = true
         
         isHidden = true
-        backgroundColor = .clear
-        translatesAutoresizingMaskIntoConstraints = false
     }
     
     func enable() {

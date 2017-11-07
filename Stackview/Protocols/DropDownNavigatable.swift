@@ -15,7 +15,7 @@ extension DropDownNavigatable where Self: DataViewController {
     func enableDropDownMenu(with items: [String], title: String, initialItemIndex index: Int, handler: @escaping (Int) -> Void) {
         guard let navigationController = self.navigationController else { return }
         
-        let dropDownMenu = BTNavigationDropdownMenu(navigationController: navigationController, containerView: navigationController.view, title: title, subtitle: items[index], items: items)
+        let dropDownMenu = BTNavigationDropdownMenu(navigationController: navigationController, containerView: self.view, title: title, subtitle: items[index], items: items)
 
         dropDownMenu.cellTextLabelAlignment = .center
         dropDownMenu.animationDuration = 0.25

@@ -12,4 +12,5 @@ enum SearchRecordType: Int16 {
     case question = 0
     case tag
     case user
+    case post
 }

@@ -9,24 +9,22 @@
 import UIKit
 
 class TagInputCollectionViewCell: UICollectionViewCell {
-    private let textColor = UIColor.white
-    
-    var textField: UITextField
+    var textField: UITextField = {
+        let field = UITextField()
+        field.translatesAutoresizingMaskIntoConstraints = false
+        field.backgroundColor = .clear
+        field.font = UIFont.systemFont(ofSize: 16.0)
+        field.textColor = .white
+        field.autocorrectionType = .no
+        field.autocapitalizationType = .none
+        field.keyboardAppearance = .dark
+        field.returnKeyType = .done
+        field.tintColor = .white
+        return field
+    }()
     
     override init(frame: CGRect) {
-        textField = UITextField()
-        
         super.init(frame: frame)
-        
-        textField.translatesAutoresizingMaskIntoConstraints = false
-        textField.backgroundColor = .clear
-        textField.font = UIFont.systemFont(ofSize: 16.0)
-        textField.textColor = textColor
-        textField.autocorrectionType = .no
-        textField.autocapitalizationType = .none
-        textField.keyboardAppearance = .dark
-        textField.returnKeyType = .done
-        textField.tintColor = .white
         
         contentView.addSubview(textField)
         textField.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true

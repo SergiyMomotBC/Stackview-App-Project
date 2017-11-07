@@ -13,7 +13,7 @@ struct ResponseWrapper: Decodable {
     let errorID: Int?
     let errorMessage: String?
     let errorName: String?
-    let hasMore: Bool
+    let hasMore: Bool?
     let page: Int?
     let pageSize: Int?
     let quotaMax: Int?

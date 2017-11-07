@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="13233.4" systemVersion="16G29" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="13240" systemVersion="16G29" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="BrowsingRecord" representedClassName="BrowsingRecord" syncable="YES">
+        <attribute name="questionID" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="tagsData" attributeType="Binary" syncable="YES"/>
+        <attribute name="title" attributeType="String" syncable="YES"/>
+        <attribute name="viewedDate" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+    </entity>
     <entity name="SearchRecord" representedClassName="SearchRecord" syncable="YES">
         <attribute name="date" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="title" attributeType="String" syncable="YES"/>
@@ -7,5 +13,6 @@
     </entity>
     <elements>
         <element name="SearchRecord" positionX="-63" positionY="-18" width="128" height="90"/>
+        <element name="BrowsingRecord" positionX="-63" positionY="9" width="128" height="105"/>
     </elements>
 </model>

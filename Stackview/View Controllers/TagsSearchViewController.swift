@@ -29,6 +29,6 @@ extension TagsSearchViewController: RemoteDataSource {
     }
     
     var parameters: [ParametersConvertible] {
-        return [SortingParameters(option: TagsSortOption.popular(min: nil, max: nil), order: .descending), InnameSearchParameter(query: searchbar.text!)]
+        return [SortingParameters(option: TagsSortOption.popular(min: nil, max: nil), order: .descending), InnameSearchParameter(query: navigationSearchbar.searchbar.text!)]
     }
 }

@@ -29,11 +29,11 @@ struct CreationDateFilterParameters: ParametersConvertible {
         var params: [String: Any] = [:]
         
         if let date = self.fromDate {
-            params[fromDateParameterName] = date
+            params[fromDateParameterName] = Int(date.timeIntervalSince1970)
         }
         
         if let date = self.toDate {
-            params[toDateParameterName] = date
+            params[toDateParameterName] = Int(date.timeIntervalSince1970)
         }
         
         return params

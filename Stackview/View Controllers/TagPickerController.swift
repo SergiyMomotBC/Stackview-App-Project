@@ -96,6 +96,7 @@ class TagPickerController: UIViewController {
         availableTagsCollectionView.trailingAnchor.constraint(equalTo: accessoryView.contentView.trailingAnchor, constant: -16.0).isActive = true
         availableTagsCollectionView.bottomAnchor.constraint(equalTo: accessoryView.contentView.bottomAnchor).isActive = true
         
+        loadingView.translatesAutoresizingMaskIntoConstraints = false
         accessoryView.contentView.addSubview(loadingView)
         loadingView.topAnchor.constraint(equalTo: accessoryView.contentView.topAnchor).isActive = true
         loadingView.leadingAnchor.constraint(equalTo: accessoryView.contentView.leadingAnchor).isActive = true
@@ -177,7 +178,7 @@ class TagPickerController: UIViewController {
             self.availableTagsCollectionView.isHidden = true
             self.loadingView.enable()
             
-            self.api.makeRequest(to: "tags", with: [TagSearchParameters(query: self.textField?.text ?? ""), PagingParameters(pageSize: 10)], completion: { (result: [Tag]?, error: RequestError?, _) in
+            self.api.makeRequest(to: "tags", with: [InnameSearchParameter(query: self.textField?.text ?? ""), PagingParameters(pageSize: 10)], completion: { (result: [Tag]?, error: RequestError?, _) in
                 self.allTags = result?.map { $0.name! } ?? []
                 self.requestTask = nil
                 self.loadingView.disable()
@@ -213,7 +214,7 @@ extension TagPickerController: UICollectionViewDelegate, UICollectionViewDataSou
             textField?.inputAccessoryView = accessoryView
             textField?.delegate = self
             textField?.text = ""
-            setPlaceholderText("Tap to add tags...")
+            setPlaceholderText("Tap to edit tags...")
             return cell
         } else {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: TagCollectionViewCell.self), for: indexPath) as! TagCollectionViewCell
@@ -265,10 +266,11 @@ extension TagPickerController: UITextFieldDelegate {
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
-        setPlaceholderText("Tap to add tags...")
+        setPlaceholderText("Tap to edit tags...")
         textField.text = ""
         allTags.removeAll()
         availableTagsCollectionView.reloadData()
+        chosenTagsCollectionView.scrollToItem(at: IndexPath(item: chosenTags.count, section: 0), at: .right, animated: true)
         tapRecognizer.isEnabled = true
         delegate?.tagPickerDoneAddingTags(self, changesCommited: lastChosenTags != chosenTags)
         lastChosenTags = chosenTags

@@ -47,9 +47,9 @@ class QuestionsViewController: DataPresenterViewController<Question, QuestionTab
         super.viewDidLoad()
         
         self.setupTagPicker()
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .search, target: self, action: #selector(showSearch))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "search_icon")!.withRenderingMode(.alwaysTemplate), style: .plain, target: self, action: #selector(showSearch))
     }
-    
+
     private func setupTagPicker() {
         addChildViewController(tagPickerController)
         
@@ -93,6 +93,12 @@ class QuestionsViewController: DataPresenterViewController<Question, QuestionTab
     @objc func showSearch() {
         navigationController?.show(QuestionsSearchViewController(), sender: nil)
     }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        let vc = QuestionDetailViewController(for: String(data[indexPath.row].id!))
+        navigationController?.show(vc, sender: nil)
+    }
 }
 
 extension QuestionsViewController: TagPickerControllerDelegate {
@@ -105,7 +111,7 @@ extension QuestionsViewController: TagPickerControllerDelegate {
         
         if changesCommited {
             data.removeAll()
-            loadQuestions()
+            loadData()
         }
     }
 }
@@ -121,45 +127,3 @@ extension QuestionsViewController: RemoteDataSource {
                 Tagging(tags: api.vectorize(parameters: tagPickerController.chosenTags))]
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

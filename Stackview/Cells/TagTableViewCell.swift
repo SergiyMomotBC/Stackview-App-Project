@@ -11,23 +11,17 @@ import UIKit
 class TagTableViewCell: GenericCell<Tag> {
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var countLabel: UILabel!
-    private var tagObject: Tag?
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        selectionStyle = .none
-        contentView.subviews.first!.layer.cornerRadius = 6.0
-    }
+    private var tagName: String?
     
     override func setup(for tag: Tag) {
-        self.tagObject = tag
+        tagName = tag.name
         nameLabel.text = tag.name?.htmlUnescape()
-        countLabel.text = "x\(tag.count ?? 0)"
+        countLabel.text = "x\((tag.count ?? 0).toString())"
     }
     
     @IBAction func infoButtonTapped(_ sender: Any) {
-        if let tag = self.tagObject {
-            TagQuickInfoPopupController.displayQuickInfo(about: tag.name!)
+        if let tag = tagName {
+            TagQuickInfoPopupController.displayQuickInfo(about: tag)
         }
     }
 }

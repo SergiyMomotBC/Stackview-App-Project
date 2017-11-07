@@ -17,7 +17,7 @@ struct TopTag: Decodable {
     let userID: Int?
     
     private enum CodingKeys: String, CodingKey {
-        case answersCount = "answers_count"
+        case answersCount = "answer_count"
         case answerScore = "answer_score"
         case questionsCount = "question_count"
         case questionScore = "question_score"

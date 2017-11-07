@@ -40,9 +40,15 @@ class StackExchangeRequest {
     private let apiDomain = "https://api.stackexchange.com/2.2/"
     private let site = "stackoverflow"
     private var headers: HTTPHeaders = ["Accept": "application/json", "Accept-Encoding": "gzip"]
-    private let key = "GzRntkcuVDbKd0rmPMCdUA(("
+    private let key = "" // Stack Exchange API key should be here
     private let httpErrorCode = 400
-    private let filterName = "!*MGgi9snja3dZ(_b"
+    var filterName = "!7tRY9Gt*TsstT6tu0AvgTO.bfTAJIkb9J3"
+    
+    init(filter: String? = nil) {
+        if let filterName = filter {
+            self.filterName = filterName
+        }
+    }
     
     func vectorize(parameters: [Int]) -> String {
         return parameters.map({ String($0) }).joined(separator: ";")
@@ -62,20 +68,28 @@ class StackExchangeRequest {
         return parameters
     }
     
-    func makeRequest<T: Decodable>(to endpoint: String, with options: [ParametersConvertible] = [], requiresAccessToken: Bool = false, completion: @escaping (T?, RequestError?, Bool?) -> Void) {
+    @discardableResult
+    func makeRequest<T: Decodable>(to endpoint: String,
+                                   with options: [ParametersConvertible] = [],
+                                   method: HTTPMethod = .get,
+                                   ignoreResult: Bool = false,
+                                   noSite: Bool = false,
+                                   completion: @escaping (T?, RequestError?, Bool?) -> Void) -> Request
+    {
         var requestParameters = buildParameters(from: options)
         
-        requestParameters["site"] = self.site
+        if !noSite {
+            requestParameters["site"] = self.site
+        }
+        
         requestParameters["key"] = self.key
         requestParameters["filter"] = self.filterName
         
-        if requiresAccessToken {
-            requestParameters["access_token"] = ""
+        if let accessToken = AuthenticatedUser.current.accessToken {
+            requestParameters["access_token"] = accessToken
         }
         
-        Alamofire.request(self.apiDomain + endpoint, parameters: requestParameters, headers: self.headers).validate().responseJSON { responseInfo in
-            print(responseInfo.timeline)
-            
+        return Alamofire.request(self.apiDomain + endpoint, method: method, parameters: requestParameters, headers: self.headers).validate().responseJSON { responseInfo in
             if let code = (responseInfo.error as? URLError)?.errorCode, code == NSURLErrorNotConnectedToInternet {
                 completion(nil, RequestError.noInternetConnection, nil)
                 return
@@ -103,11 +117,14 @@ class StackExchangeRequest {
             }
             
             do {
-                let itemsData = try JSON(jsonData)["items"].rawData()
-                let result = try self.jsonDecoder.decode(T.self, from: itemsData)
-                completion(result, nil, responseWrapper.hasMore)
-            } catch let error {
-                print(error)
+                if !ignoreResult {
+                    let itemsData = try JSON(jsonData)["items"].rawData()
+                    let result = try self.jsonDecoder.decode(T.self, from: itemsData)
+                    completion(result, nil, responseWrapper.hasMore)
+                } else {
+                    completion(nil, nil, responseWrapper.hasMore)
+                }
+            } catch {
                 completion(nil, RequestError.jsonParsingFailed, nil)
             }
         }

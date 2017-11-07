@@ -39,7 +39,7 @@ struct Post: Decodable {
         case bodyMarkdown = "body_markdown"
         case commentsCount = "comment_count"
         case comments
-        case creationDate = "creationDate"
+        case creationDate = "creation_date"
         case downvoteCount = "down_vote_count"
         case isDownvotedByCurrentUser = "downvoted"
         case lastActivityDate = "last_activity_date"

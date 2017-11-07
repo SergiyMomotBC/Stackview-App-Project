@@ -10,7 +10,6 @@ import UIKit
 
 class BadgeTableViewCell: GenericCell<Badge> {
     @IBOutlet weak var countLabel: UILabel!
-    @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet weak var badgeImageView: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var containerWidthConstraint: NSLayoutConstraint!
@@ -18,17 +17,14 @@ class BadgeTableViewCell: GenericCell<Badge> {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        
-        selectionStyle = .none
         container.clipsToBounds = true
         container.layer.cornerRadius = 6.0
-        contentView.subviews.first?.layer.cornerRadius = 6.0
     }
     
     override func setup(for badge: Badge) {
-        nameLabel.text = badge.name
-        countLabel.text = "x\(badge.awardCount ?? 0)"
-        descriptionLabel.text = badge.description?.htmlUnescape()
+        nameLabel.text = badge.name?.htmlUnescape()
+        countLabel.text = "x\((badge.awardCount ?? 0).toString())"
+        container.backgroundColor = badge.type! == .tagBased ? .flatPurple : .namedBadgeColor
         
         if let type = badge.rank {
             switch type {

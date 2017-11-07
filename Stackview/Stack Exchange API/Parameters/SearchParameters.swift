@@ -12,6 +12,7 @@ struct SearchParameters: ParametersConvertible {
     private let queryParameterName = "q"
     private let minAnswersParameterName = "answers"
     private let bodyTextParameterName = "body"
+    private let acceptedParameterName = "accepted"
     private let closedParameterName = "closed"
     private let migratedParameterName = "migrated"
     private let noticeParameterName = "notice"
@@ -22,10 +23,13 @@ struct SearchParameters: ParametersConvertible {
     private let urlParameterName = "url"
     private let viewsParameterName = "views"
     private let wikiParameterName = "wiki"
+    private let fromDateParameterName = "fromdate"
+    private let toDateParameterName = "todate"
     
     var query: String?
     var minAnswers: Int?
     var bodyText: String?
+    var isAccepted: Bool?
     var isClosed: Bool?
     var isMigrated: Bool?
     var hasNotice: Bool?
@@ -36,6 +40,8 @@ struct SearchParameters: ParametersConvertible {
     var url: String?
     var minViews: Int?
     var isWiki: Bool?
+    var fromDate: Date?
+    var toDate: Date?
     
     var parameters: [String : Any] {
         var params: [String: Any] = [:]
@@ -52,24 +58,28 @@ struct SearchParameters: ParametersConvertible {
             params[bodyTextParameterName] = bodyText
         }
         
+        if let isAccepted = self.isAccepted {
+            params[acceptedParameterName] = isAccepted ? "True" : "False"
+        }
+        
         if let isClosed = self.isClosed {
-            params[closedParameterName] = isClosed
+            params[closedParameterName] = isClosed ? "True" : "False"
         }
         
         if let isMigrated = self.isMigrated {
-            params[migratedParameterName] = isMigrated
+            params[migratedParameterName] = isMigrated ? "True" : "False"
         }
         
         if let hasNotice = self.hasNotice {
-            params[noticeParameterName] = hasNotice
+            params[noticeParameterName] = hasNotice ? "True" : "False"
         }
         
         if let notTaggedList = self.notTaggedList {
-            params[notTaggedParameterName] = notTaggedList
+            params[notTaggedParameterName] = notTaggedList.joined(separator: ";")
         }
         
         if let taggedList = self.taggedList {
-            params[taggedParameterName] = taggedList
+            params[taggedParameterName] = taggedList.joined(separator: ";")
         }
         
         if let titleText = self.titleText {
@@ -89,7 +99,15 @@ struct SearchParameters: ParametersConvertible {
         }
         
         if let isWiki = self.isWiki {
-            params[wikiParameterName] = isWiki
+            params[wikiParameterName] = isWiki ? "True" : "False"
+        }
+        
+        if let date = self.fromDate {
+            params[fromDateParameterName] = date.timeIntervalSince1970
+        }
+        
+        if let date = self.toDate {
+            params[toDateParameterName] = date.timeIntervalSince1970
         }
         
         return params

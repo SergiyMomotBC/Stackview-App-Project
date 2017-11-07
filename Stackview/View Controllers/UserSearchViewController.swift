@@ -22,6 +22,12 @@ class UsersSearchViewController: SearchViewController<User, UserTableViewCell> {
         super.viewDidLoad()
         tableView.rowHeight = 80.0
     }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        let questionsVC = UserProfileViewController(for: String(data[indexPath.row].id ?? 0))
+        navigationController?.show(questionsVC, sender: nil)
+    }
 }
 
 extension UsersSearchViewController: RemoteDataSource {
@@ -31,6 +37,6 @@ extension UsersSearchViewController: RemoteDataSource {
     
     var parameters: [ParametersConvertible] {
         return [SortingParameters(option: UsersSortOption.reputation(min: nil, max: nil), order: .descending),
-                InnameSearchParameter(query: searchbar.text!)]
+                InnameSearchParameter(query: navigationSearchbar.searchbar.text!)]
     }
 }

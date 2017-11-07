@@ -7,39 +7,36 @@
 //
 
 import UIKit
-import HTMLEntities
 
 class SearchExcerptTableViewCell: GenericCell<SearchExcerpt> {
     @IBOutlet weak var postTypeLabel: UILabel!
     @IBOutlet weak var createdTimeLabel: UILabel!
-    @IBOutlet weak var answersScoreLabel: UILabel!
+    @IBOutlet weak var answersScoreLabel: ScoreLabel!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var excerptLabel: UILabel!
     @IBOutlet weak var tagsCollectionView: TagsCollectionView!
 
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        selectionStyle = .none
-        contentView.subviews.first!.layer.cornerRadius = 6.0
-    }
-    
     override func setup(for searchExcerpt: SearchExcerpt) {
         guard let type = searchExcerpt.itemType else { return }
         
         postTypeLabel.text = type == .question ? "Question" : "Answer"
         
         if let creationDate = searchExcerpt.creationDate {
-            createdTimeLabel.text = (type == .question ? "Asked " : "Answered ") + CellUtils.getCreationTimeText(for: creationDate)
+            createdTimeLabel.text = creationDate.getCreationTimeText()
         } else {
             createdTimeLabel.text = ""
         }
         
-        answersScoreLabel.backgroundColor = (searchExcerpt.hasAcceptedAnswer ?? false) ? CellUtils.hasAcceptedAnswerColor : .clear
+        answersScoreLabel.backgroundColor = (searchExcerpt.hasAcceptedAnswer ?? false) ? .greenAcceptedColor : .clear
         
         if type == .question {
-            CellUtils.setCountLabelAttributes(label: answersScoreLabel, number: searchExcerpt.answersCount ?? 0, word: "answer")
+            let aCount = searchExcerpt.answersCount ?? 0
+            answersScoreLabel.emphasize(text: "\(aCount.toString()) \(abs(aCount) == 1 ? "answer" : "answers")")
+            answersScoreLabel.isAccepted = searchExcerpt.hasAcceptedAnswer ?? false
         } else {
-            CellUtils.setCountLabelAttributes(label: answersScoreLabel, number: searchExcerpt.score ?? 0, word: "vote")
+            let score = searchExcerpt.score ?? 0
+            answersScoreLabel.emphasize(text: "\(score.toString()) \(abs(score) == 1 ? "vote" : "votes")")
+            answersScoreLabel.isAccepted = searchExcerpt.isAccepted ?? false
         }
         
         if searchExcerpt.hasAcceptedAnswer ?? false {
@@ -51,7 +48,9 @@ class SearchExcerptTableViewCell: GenericCell<SearchExcerpt> {
         titleLabel.text = searchExcerpt.title?.htmlUnescape()
         excerptLabel.attributedText = highlight(excerpt: prettify(excerpt: searchExcerpt.excerptText ?? ""))
         
-        tagsCollectionView.tagNames = searchExcerpt.tags ?? []
+        DispatchQueue.main.async {
+            self.tagsCollectionView.tagNames = searchExcerpt.tags ?? []
+        }
     }
     
     private func prettify(excerpt: String) -> String {
@@ -60,8 +59,7 @@ class SearchExcerptTableViewCell: GenericCell<SearchExcerpt> {
             .replacingOccurrences(of: "( )+", with: " ", options: .regularExpression)
             .replacingOccurrences(of: " \u{2026}", with: "...")
     }
-    
-    //bug if span is in actual excerpt text...
+
     private func highlight(excerpt: String) -> NSAttributedString {
         let open = "<span class=\"highlight\">"
         let close = "</span>"

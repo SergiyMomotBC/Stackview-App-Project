@@ -8,14 +8,14 @@
 
 import Foundation
 
-enum UserType: String, Decodable {
+enum UserType: String, Codable {
     case unregistered
     case registered
     case moderator
     case notExisting = "does_not_exist"
 }
 
-struct User: Decodable {
+struct User: Codable {
     let aboutMeText: String?
     let acceptRate: Int?
     let accountID: Int?

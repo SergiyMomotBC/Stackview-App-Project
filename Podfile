@@ -15,4 +15,8 @@ target 'Stackview' do
     pod 'HTMLEntities', :git => 'https://github.com/IBM-Swift/swift-html-entities.git'
     pod 'DZNEmptyDataSet'
     pod 'CFAlertViewController'
+    pod 'TTSegmentedControl'
+    pod 'OAuthSwift', '~> 1.2.0'
+    pod 'ImageViewer'
+    pod 'KeychainSwift'
 end
