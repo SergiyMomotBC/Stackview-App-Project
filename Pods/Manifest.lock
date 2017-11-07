@@ -1,21 +1,60 @@
 PODS:
   - Alamofire (4.5.0)
+  - BTNavigationDropdownMenu (0.4.1)
+  - CFAlertViewController (2.3.2)
+  - DGElasticPullToRefresh (1.1)
+  - DZNEmptyDataSet (1.8.1)
+  - HTMLEntities (3.0.4)
+  - ImageViewer (5.0.0)
   - InteractiveSideMenu (2.0)
+  - KeychainSwift (9.0.2)
+  - Kingfisher (3.10.4)
+  - OAuthSwift (1.2.0)
   - StatefulViewController (3.0)
   - SwiftyJSON (3.1.4)
+  - TTSegmentedControl (0.2.1)
 
 DEPENDENCIES:
   - Alamofire
+  - BTNavigationDropdownMenu
+  - CFAlertViewController
+  - DGElasticPullToRefresh
+  - DZNEmptyDataSet
+  - HTMLEntities (from `https://github.com/IBM-Swift/swift-html-entities.git`)
+  - ImageViewer
   - InteractiveSideMenu
+  - KeychainSwift
+  - Kingfisher
+  - OAuthSwift (~> 1.2.0)
   - StatefulViewController
   - SwiftyJSON
+  - TTSegmentedControl
+
+EXTERNAL SOURCES:
+  HTMLEntities:
+    :git: https://github.com/IBM-Swift/swift-html-entities.git
+
+CHECKOUT OPTIONS:
+  HTMLEntities:
+    :commit: 035f88550607ecf169d0593cb61aef4be02f0b3b
+    :git: https://github.com/IBM-Swift/swift-html-entities.git
 
 SPEC CHECKSUMS:
   Alamofire: f28cdffd29de33a7bfa022cbd63ae95a27fae140
+  BTNavigationDropdownMenu: 093f3cbfad1572f2c222bdf8d17584d1e13380d4
+  CFAlertViewController: 19671c78df03eab2aa7ca2c93df6cb12e5c78e71
+  DGElasticPullToRefresh: 28f11a6026302a90f8ffebbc6e24748e584dddd3
+  DZNEmptyDataSet: 9525833b9e68ac21c30253e1d3d7076cc828eaa7
+  HTMLEntities: baeedcc885cfdf70f97a445c6ae1c88548878945
+  ImageViewer: 3def6e39c6979ce3e9d001c78eec0d8b895f2f73
   InteractiveSideMenu: 337f6d95a3f6543c517a888893531430e18553b3
+  KeychainSwift: 3ab1d428d0dbff59cd056f1d0bfc640b36c2b081
+  Kingfisher: dc3a4983e86d2dfa89513664983a82340c11a289
+  OAuthSwift: 7fd6855b8e4d58eb5a30d156ea9bed7a8aecd1ca
   StatefulViewController: 4803bf900d44de26074344998e10e041113b5931
   SwiftyJSON: c2842d878f95482ffceec5709abc3d05680c0220
+  TTSegmentedControl: 6ba1c0ef7bf966c794361772003f8b27cc812e0a
 
-PODFILE CHECKSUM: 95e8a05e5049904722bc41fc18a08a035f6a4e75
+PODFILE CHECKSUM: 234c9425a907b0777cbeaea12205c6afcb31e352
 
 COCOAPODS: 1.3.1
